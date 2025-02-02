@@ -1,6 +1,8 @@
-import { Overview } from "@/app/components/overview/Overview";
+import { Navbar } from "@/components/nav/Navbar";
+import { NavItem } from "@/components/nav/NavItem";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,10 +28,29 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen `}
       >
-        {children}
-        <Overview></Overview>
+        <div className="h-full flex">
+          <Navbar>
+            <Link href="/overview">
+              <NavItem>
+                Overview
+              </NavItem>
+            </Link>
+            <Link href="/about">
+              <NavItem>
+                About
+              </NavItem>
+            </Link>
+            <Link href="/countries">
+              <NavItem>
+                Countries
+              </NavItem>
+            </Link>
+          </Navbar>
+          <main className="">        {children}
+          </main>
+        </div>
       </body>
     </html>
   );
