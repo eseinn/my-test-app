@@ -1,4 +1,4 @@
-import { Countries } from "@/components/countries/Countries"
+import { Countries } from "@/app/components/countries/Countries"
 import { Suspense } from "react"
 
 const Page = async () => {
