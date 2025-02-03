@@ -1,7 +1,9 @@
 'use server'
 
-import { revalidatePath } from "next/cache"
-import { z } from 'zod'
+import axios from "axios";
+import { revalidatePath } from "next/cache";
+import { z } from 'zod';
+
 
 const postSchema = z.object({
     title: z.string().min(1),
@@ -21,9 +23,26 @@ export async function createPost(state: PostState, formData: FormData) {
             errors: validatedFields.error.flatten().fieldErrors,
         }
     }
-    // Update data
-    // Revalidate cache
-    revalidatePath('/posts')
+    try {
+        const response = await axios.post("https://jsonplaceholder.typicode.com/posts", {
+            title: validatedFields.data.title,
+            body: validatedFields.data.content,
+        });
+
+        // Update data
+        // Revalidate cache
+        revalidatePath('/posts')
+        return response.data;
+
+    }
+    catch (error) {
+        console.error('Database Error:', error);
+
+        throw new Error("Error creating user: " + error);
+    }
+
+
+
 
 }
 

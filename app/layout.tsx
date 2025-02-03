@@ -1,5 +1,6 @@
 import { Navbar } from '@/app/components/nav/Navbar';
 import { NavItem } from '@/app/components/nav/NavItem';
+import { ReactQueryProvider } from '@/app/lib/providers';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Link from 'next/link';
@@ -30,23 +31,25 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen `}
       >
-        <div className='h-full flex'>
-          <Navbar>
-            <Link href='/overview'>
-              <NavItem>Overview</NavItem>
-            </Link>
-            <Link href='/about'>
-              <NavItem>About</NavItem>
-            </Link>
-            <Link href='/countries'>
-              <NavItem>Countries</NavItem>
-            </Link>
-            <Link href='/posts'>
-              <NavItem>Posts</NavItem>
-            </Link>
-          </Navbar>
-          <main className=''> {children}</main>
-        </div>
+        <ReactQueryProvider>
+          <div className='h-full flex overflow-auto'>
+            <Navbar>
+              <Link href='/overview'>
+                <NavItem>Overview</NavItem>
+              </Link>
+              <Link href='/about'>
+                <NavItem>About</NavItem>
+              </Link>
+              <Link href='/countries'>
+                <NavItem>Countries</NavItem>
+              </Link>
+              <Link href='/posts'>
+                <NavItem>Posts</NavItem>
+              </Link>
+            </Navbar>
+            <main className=''> {children}</main>
+          </div>
+        </ReactQueryProvider>
       </body>
     </html>
   );

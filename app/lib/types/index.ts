@@ -4,3 +4,7 @@ export type CountryT = {
     }
     cca2: string //id
 }
+export type PostT = {
+    title: string;
+    body: string
+}
